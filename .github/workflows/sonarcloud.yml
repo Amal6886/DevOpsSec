@@ -41,6 +41,4 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Amal6886_DevOpsSec
-            -Dsonar.organization=Amal6886
-
-
+            -Dsonar.organization=amal6886
