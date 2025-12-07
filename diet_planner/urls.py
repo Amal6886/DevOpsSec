@@ -1,5 +1,5 @@
 """
-URL configuration for the diet_planner project.
+URL configuration 4 the diet_planner project.
 
 Defines URL patterns for all apps and handles root URL redirection.
 """
