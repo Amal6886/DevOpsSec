@@ -6,6 +6,7 @@ Handles user registration, login, logout, profile editing, and admin dashboard.
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -19,6 +20,7 @@ from .forms import UserRegistrationForm, ProfileForm
 from .models import Profile, User
 
 
+@require_http_methods(["GET", "POST"])
 def register(request):
     """
     Handle user registration.
@@ -60,6 +62,7 @@ def register(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
+@require_http_methods(["GET", "POST"])
 def user_login(request):
     """
     Handle user login.
@@ -111,6 +114,7 @@ def dashboard(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def select_goal(request):
     """
     Allow user to select fitness goal and generate diet plan.
@@ -145,6 +149,7 @@ def select_goal(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def edit_profile(request):
     """
     Handle user profile editing.
@@ -172,6 +177,7 @@ def edit_profile(request):
 
 
 @login_required
+@require_http_methods(["POST"])
 def user_logout(request):
     """
     Handle user logout.
