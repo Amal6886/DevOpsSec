@@ -150,3 +150,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER or 
 CSRF_TRUSTED_ORIGINS = [
     "https://b9cd0a238dd34aabb9c5f622e3681d61.vfs.cloud9.us-east-1.amazonaws.com",
 ]
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
