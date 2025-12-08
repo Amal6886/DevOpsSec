@@ -240,3 +240,6 @@ def admin_dashboard(request):
         'low_stock_bars': low_stock_bars[:5],
     }
     return render(request, 'accounts/admin_dashboard.html', context)
+
+
+#
