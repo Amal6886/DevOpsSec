@@ -44,3 +44,8 @@ def cart(request):
         'cart_total': round(cart_total, 2),
         'cart_count': len(cart_items)
     }
+
+
+
+
+
