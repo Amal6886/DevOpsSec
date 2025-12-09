@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Products - Admin{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-box-seam"></i> Manage Products</h1>
+            <div>
+                <a href="{% url 'products:create_supplement' %}" class="btn btn-primary me-2">
+                    <i class="bi bi-plus-circle"></i> Add Supplement
+                </a>
+                <a href="{% url 'products:create_protein_bar' %}" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Add Protein Bar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h3>Supplements</h3>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Threshold</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for supplement in supplements %}
+                    <tr>
+                        <td>{{ supplement.name }}</td>
+                        <td>{{ supplement.brand|default:"-" }}</td>
+                        <td>${{ supplement.price }}</td>
+                        <td>{{ supplement.stock_quantity }}</td>
+                        <td>{{ supplement.threshold }}</td>
+                        <td>
+                            {% if supplement.is_low_stock %}
+                            <span class="badge bg-warning text-dark">Low Stock</span>
+                            {% elif supplement.stock_quantity > 0 %}
+                            <span class="badge bg-success">In Stock</span>
+                            {% else %}
+                            <span class="badge bg-danger">Out of Stock</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'products:update_supplement' supplement.pk %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a href="{% url 'products:delete_supplement' supplement.pk %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No supplements found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>Protein Bars</h3>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Flavor</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Threshold</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for protein_bar in protein_bars %}
+                    <tr>
+                        <td>{{ protein_bar.name }}</td>
+                        <td>{{ protein_bar.flavor|default:"-" }}</td>
+                        <td>${{ protein_bar.price }}</td>
+                        <td>{{ protein_bar.stock_quantity }}</td>
+                        <td>{{ protein_bar.threshold }}</td>
+                        <td>
+                            {% if protein_bar.is_low_stock %}
+                            <span class="badge bg-warning text-dark">Low Stock</span>
+                            {% elif protein_bar.stock_quantity > 0 %}
+                            <span class="badge bg-success">In Stock</span>
+                            {% else %}
+                            <span class="badge bg-danger">Out of Stock</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'products:update_protein_bar' protein_bar.pk %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a href="{% url 'products:delete_protein_bar' protein_bar.pk %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No protein bars found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

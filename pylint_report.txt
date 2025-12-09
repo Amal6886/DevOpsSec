@@ -1,0 +1,199 @@
+************* Module manage
+manage.py:1:0: R0801: Similar lines in 2 files
+==orders.context_processors:[4:41]
+==orders.views:[48:84]
+    cart_items = []
+    cart_total = 0
+
+    if 'cart' in request.session:
+
+        for item in request.session['cart']:
+            product_type = item.get('type')
+            product_id = item.get('id')
+            quantity = item.get('quantity', 1)
+
+            if product_type == 'supplement':
+                try:
+                    product = Supplement.objects.get(id=product_id)
+                    item_total = float(product.price) * quantity
+                    cart_items.append({
+                        'product': product,
+                        'type': 'supplement',
+                        'quantity': quantity,
+                        'total': item_total
+                    })
+                    cart_total += item_total
+                except Supplement.DoesNotExist:
+                    continue
+            elif product_type == 'protein_bar':
+                try:
+                    product = ProteinBar.objects.get(id=product_id)
+                    item_total = float(product.price) * quantity
+                    cart_items.append({
+                        'product': product,
+                        'type': 'protein_bar',
+                        'quantity': quantity,
+                        'total': item_total
+                    })
+                    cart_total += item_total
+                except ProteinBar.DoesNotExist:
+                    continue
+ (duplicate-code)
+manage.py:1:0: R0801: Similar lines in 2 files
+==orders.context_processors:[10:17]
+==orders.views:[138:145]
+            product_type = item.get('type')
+            product_id = item.get('id')
+            quantity = item.get('quantity', 1)
+
+            if product_type == 'supplement':
+                try:
+                    product = Supplement.objects.get(id=product_id) (duplicate-code)
+manage.py:1:0: R0801: Similar lines in 2 files
+==orders.context_processors:[25:30]
+==orders.views:[148:153]
+                except Supplement.DoesNotExist:
+                    continue
+            elif product_type == 'protein_bar':
+                try:
+                    product = ProteinBar.objects.get(id=product_id) (duplicate-code)
+
+
+Report
+======
+768 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |45     |45         |=          |57.78       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |38     |38         |=          |21.05       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |22     |22         |=          |81.82       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |36     |36         |=          |36.11       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    accounts 
+      \-forms (accounts.views)
+      \-models (accounts.admin,accounts.forms,accounts.views,diet_plans.models,orders.models)
+      \-views (accounts.urls)
+    diet_plans 
+      \-models (diet_plans.admin,diet_plans.services)
+      \-services (accounts.views)
+    django 
+      \-apps (accounts.apps,diet_plans.apps,notifications.apps,orders.apps,products.apps)
+      \-conf (accounts.views,diet_planner.urls,notifications.tasks,orders.views)
+      | \-urls 
+      |   \-static (diet_planner.urls)
+      \-contrib 
+      | \-admin (accounts.admin,diet_planner.urls,diet_plans.admin,notifications.admin,orders.admin,products.admin)
+      | \-auth (accounts.views,notifications.tasks)
+      | | \-admin (accounts.admin)
+      | | \-decorators (accounts.views,orders.views,products.views)
+      | | \-forms (accounts.forms)
+      | | \-models (accounts.models)
+      | \-contenttypes 
+      | | \-fields (notifications.models)
+      | | \-models (notifications.models,notifications.signals,notifications.tasks)
+      | \-messages (accounts.views,orders.views,products.views)
+      \-core 
+      | \-asgi (diet_planner.asgi)
+      | \-mail (accounts.views,notifications.tasks,orders.views)
+      | \-management (manage)
+      | \-wsgi (diet_planner.wsgi)
+      \-db 
+      | \-models (accounts.models,accounts.views,diet_plans.models,notifications.models,orders.models,products.models)
+      |   \-signals (notifications.signals)
+      \-dispatch (notifications.signals)
+      \-forms (accounts.forms,products.forms)
+      \-shortcuts (accounts.views,diet_planner.urls,orders.views,products.views)
+      \-urls (accounts.urls,diet_planner.urls,orders.urls,products.models,products.urls)
+    notifications 
+      \-models (notifications.admin,notifications.signals)
+      \-signals (notifications.apps)
+      \-tasks (notifications.signals)
+    orders 
+      \-models (accounts.views,orders.admin,orders.views)
+      \-views (orders.urls)
+    products 
+      \-forms (products.views)
+      \-models (accounts.views,notifications.signals,notifications.tasks,orders.context_processors,orders.models,orders.views,products.admin,products.forms,products.views)
+      \-views (products.urls)
+
+
+
+1910 lines have been analyzed
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |1133   |59.32 |1133     |=          |
++----------+-------+------+---------+-----------+
+|docstring |455    |23.82 |455      |=          |
++----------+-------+------+---------+-----------+
+|comment   |23     |1.20  |23       |=          |
++----------+-------+------+---------+-----------+
+|empty     |299    |15.65 |299      |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |0          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |0      |0        |0          |
++-----------+-------+---------+-----------+
+|refactor   |3      |3        |3          |
++-----------+-------+---------+-----------+
+|warning    |0      |0        |0          |
++-----------+-------+---------+-----------+
+|error      |0      |0        |0          |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++---------------+------------+
+|message id     |occurrences |
++===============+============+
+|duplicate-code |3           |
++---------------+------------+
+
+
+
+
+------------------------------------------------------------------
+Your code has been rated at 9.96/10 (previous run: 9.96/10, +0.00)
+
